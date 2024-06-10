@@ -87,7 +87,19 @@ android_tools = [
                         "description": "Whether it should be a quick swipe.",
                     },
                 },
-                "required": ["x", "y", "direction", "dist", "quick"],
+                "required": ["x", "y", "direction"],
+            },
+        },
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "back",
+            "description": "Go back",
+            "parameters": {
+                "type": "object",
+                "properties": {},
+                "required": [],
             },
         },
     },

@@ -24,3 +24,5 @@ class Swipe(BaseModel):
     direction: str
     dist: str
     quick: bool
+
+class Back(BaseModel): pass

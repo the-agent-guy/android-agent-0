@@ -1,5 +1,7 @@
-from android_controller import AndroidController
-from gpt4o_agent import GPT4oAgent
+from android_controller import AndroidController, list_devices
+from gpt4o_naive_vision_agent import GPT4oNaiveVisionAgent
+from gpt4o_vision_xml_elements_agent import GPT4oVisionXMLElementsAgent
+import time
 
 class Automaton:
     def __init__(self, controller, model):
@@ -13,10 +15,11 @@ class Automaton:
         i = 0
         while not self.done:
             screenshot = self.controller.get_screenshot(i)
-            print(screenshot)
-            actions = self.model(screenshot, self.task)
+            xml = self.controller.get_xml(i)
+            actions = self.model(screenshot, xml, self.task)
             for action in actions:
                 self.controller.action_execute(action)
+                time.sleep(2)
             i += 1
 
 
@@ -34,7 +37,8 @@ def main():
     task = input()
 
     controller = AndroidController(device)
-    model = GPT4oAgent()
+    # model = GPT4oNaiveVisionAgent()
+    model = GPT4oVisionXMLElementsAgent()
     automaton = Automaton(controller, model)
     automaton.run_task(task)
 
